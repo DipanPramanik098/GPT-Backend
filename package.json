@@ -1,0 +1,28 @@
+{
+  "name": "gpt-backend",
+  "version": "1.0.0",
+  "description": "This Is A Backend For An AI Model",
+  "keywords": [
+    "backend"
+  ],
+  "homepage": "https://github.com/DipanPramanik098/GPT-Backend#readme",
+  "bugs": {
+    "url": "https://github.com/DipanPramanik098/GPT-Backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DipanPramanik098/GPT-Backend.git"
+  },
+  "license": "ISC",
+  "author": "Dipan Pramanik",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.9.3"
+  }
+}
