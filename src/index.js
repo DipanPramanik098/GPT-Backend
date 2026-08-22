@@ -3,10 +3,13 @@ import connectDB from './config/db.js';
 import dotenv from 'dotenv';
 import userRouter from './routes/userRouter.js';
 dotenv.config();
+import cookieParser from 'cookie-parser';
+
 
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 
 // 
