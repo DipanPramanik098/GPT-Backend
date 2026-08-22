@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { logInSchema, signupSchema } from "../validators/user.validator.js";
 import Chat from "../models/chat.model.js";
+import Message from "../models/message.model.js";
 
 const createToken = async (id, email) => {
     if (!process.env.JWT_SECRET) {
@@ -180,7 +181,7 @@ export const profile = async (req, res) => {
 
 export const deleteProfile = async (req, res) => {
     try {
-        const userId = req.user._id;
+        const { userId } = req.params;
 
         // Check user exists
         const user = await User.findById(userId);

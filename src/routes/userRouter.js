@@ -1,6 +1,5 @@
 import express from "express";
-import { deleteProfile, logIn, logOut, signUp } from "../controllers/userController.js";
-import { profile } from "node:console";
+import { deleteProfile, logIn, logOut, signUp, profile } from "../controllers/userController.js";
 import authUserMiddleware from "../middleware/authUserMiddleware.js";
 
 const userRouter = express.Router();
