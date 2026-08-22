@@ -9,6 +9,7 @@ import {
     addUserTokenUsage
 } from "../utils/userUsage.js";
 import { updateSummaryIfNeeded } from "../service/summaryServices.js";
+import { addChatTokenUsage } from '../utils/tokenUsage.js';
 
 
 // ==============================

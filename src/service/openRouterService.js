@@ -3,7 +3,7 @@ import openRouter from "../config/openRouter.js"
 
 // send message to ai and return ai reply
 export const generateAiResponse = async ({model, messages}) => {
-    const completion = openRouter.chat.send({
+    const completion = await openRouter.chat.send({
         chatRequest:{
             model,
             messages
