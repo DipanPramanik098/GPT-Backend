@@ -9,7 +9,11 @@ const messageRouter = express.Router();
 
 messageRouter.use(authUserMiddleware);
 
-messageRouter.post('/getmessage/:chatId', getMessage);;
-messageRouter.delete('/sendmessage', sendMessage);
+//
+//first message
+messageRouter.post('/', sendMessage);
+// 
+messageRouter.get('/getmessage/:chatId', getMessage);;
+messageRouter.post('/sendmessage/:chatId', sendMessage);
 
 export default messageRouter;
