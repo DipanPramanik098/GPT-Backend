@@ -2,6 +2,7 @@ import User from "../models/user.model.js";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { logInSchema, signupSchema } from "../validators/user.validator.js";
+import Chat from "../models/chat.model.js";
 
 const createToken = async (id, email) => {
     if (!process.env.JWT_SECRET) {
@@ -174,3 +175,49 @@ export const profile = async (req, res) => {
         })
     }
 }
+
+// TODO ---> delete user Profile
+
+export const deleteProfile = async (req, res) => {
+    try {
+        const userId = req.user._id;
+
+        // Check user exists
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User Does Not Exist!"
+            });
+        }
+
+        // Delete all messages belonging to user
+        await Message.deleteMany({
+            userId
+        });
+
+        // Delete all chats belonging to user
+        await Chat.deleteMany({
+            userId
+        });
+
+        // Delete user
+        await User.deleteOne({
+            _id: userId
+        });
+
+        // Clear authentication cookie
+        res.clearCookie("token");
+
+        return res.status(200).json({
+            message: "Profile Deleted Successfully"
+        });
+
+    } catch (error) {
+        console.log("Error In DeleteProfile:", error);
+
+        return res.status(500).json({
+            message: "Internal Server Error!"
+        });
+    }
+};

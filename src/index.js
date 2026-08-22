@@ -5,6 +5,7 @@ import userRouter from './routes/userRouter.js';
 dotenv.config();
 import cookieParser from 'cookie-parser';
 import chatRouter from './routes/chatRouter.js';
+import messageRouter from './routes/messageRoutert.js';
 
 
 
@@ -16,6 +17,7 @@ app.use(cookieParser());
 // 
 app.use('/user', userRouter);
 app.use('/chat', chatRouter);
+app.use('/message',messageRouter);
 
 
 // * start
