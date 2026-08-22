@@ -1,8 +1,7 @@
 import express from 'express';
+import 'dotenv/config';
 import connectDB from './config/db.js';
-import dotenv from 'dotenv';
 import userRouter from './routes/userRouter.js';
-dotenv.config();
 import cookieParser from 'cookie-parser';
 import chatRouter from './routes/chatRouter.js';
 import messageRouter from './routes/messageRoutert.js';
