@@ -1,6 +1,7 @@
 import User from "../models/user.model.js";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { logInSchema, signupSchema } from "../validators/user.validator.js";
 
 const createToken = async (id, email) => {
     if (!process.env.JWT_SECRET) {
@@ -18,15 +19,33 @@ const cookiesOption = {
 }
 export const signUp = async (req, res) => {
     try {
-        const { name, email, password, age } = req.body;
+        // validate via zod 
+        const result = signupSchema.safeParse(req.body);
 
-        if (!email || !password || !name) {
-            return res.status(422).json({
-                message: "Please Fill All Required Field!"
-            })
+        if (!result.success) {
+            return res.status(400).json({
+                message: "Validation Failed",
+                errors: result.error.issues
+            });
         }
 
+        // const { name, email, password, age } = req.body;
+
+        // if (!email || !password || !name) {
+        //     return res.status(422).json({
+        //         message: "Please Fill All Required Field!"
+        //     })
+        // }
+
         // check user already exists or not?
+
+        const {
+            name,
+            email,
+            password,
+            age
+        } = result.data;
+
         const user = await User.findOne({ email });
         if (user) {
             return res.status(409).json({
@@ -64,15 +83,31 @@ export const signUp = async (req, res) => {
 }
 export const logIn = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const result = logInSchema.safeParse(req.body);
 
-        if (!email || !password) {
-            return res.status(422).json({
-                message: "Please Fill All Required Field!"
-            })
+        if (!result.success) {
+            return res.status(400).json({
+                message: "Validation Failed",
+                errors: result.error.issues
+            });
         }
 
+        const {
+            email,
+            password,
+        } = result.data;
+
+        // const { email, password } = req.body;
+
+        // if (!email || !password) {
+        //     return res.status(422).json({
+        //         message: "Please Fill All Required Field!"
+        //     })
+        // }
+
         // check user already exists or not?
+
+
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(404).json({
@@ -125,14 +160,14 @@ export const logOut = async (req, res) => {
     }
 }
 export const profile = async (req, res) => {
-    try{
+    try {
         res.status(200).json({
             name: req.user.name,
             age: req.user.age,
             email: req.user.email,
-            usage: req.user.usage, 
+            usage: req.user.usage,
         })
-    }catch(error){
+    } catch (error) {
         console.log("Error While Profile Find ", error.message);
         return res.status(500).json({
             message: "Internal Server Error!"

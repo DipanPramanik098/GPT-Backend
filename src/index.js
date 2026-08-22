@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import userRouter from './routes/userRouter.js';
 dotenv.config();
 import cookieParser from 'cookie-parser';
+import chatRouter from './routes/chatRouter.js';
 
 
 
@@ -14,6 +15,8 @@ app.use(cookieParser());
 
 // 
 app.use('/user', userRouter);
+app.use('/chat', chatRouter);
+
 
 // * start
 app.use('/', async (req, res) => {
